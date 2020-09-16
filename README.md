@@ -1,19 +1,19 @@
-# MÛdulo de Agendamento Auxiliar para o SEI
+# M√≥dulo de Agendamento Auxiliar para o SEI
 
 nome: mod-sei-agendamento-auxiliar
 
-Este mÛdulo foi desenvolvido para que os usu·rios possam escrever seus prÛprios agendamentos para o SEI independentes das atualizaÁıes do sistema. 
+Este m√≥dulo foi desenvolvido para que os usu√°rios possam escrever seus pr√≥prios agendamentos para o SEI independentes das atualiza√ß√µes do sistema. 
 
-Pedimos que todo e qualquer agendamento desenvolvido seja compartilhado para a sociedade enviado um _merge request_ para este repositÛrio.
+Pedimos que todo e qualquer agendamento desenvolvido seja compartilhado para a sociedade e enviado um _pull request_ para este reposit√≥rio.
 
-## InstalaÁ„o
-FaÁa o download desse projeto no seguinte diretÛrio do SEI
+## Instala√ß√£o
+Fa√ßa o download desse projeto no seguinte diret√≥rio do SEI
 ```bash
 $ cd sei/web/modulos
 $ git clone https://github.com/evertramos/mod-sei-agendamento-auxiliar.git
 ```
 
-Para que o SEI reconheÁa esse mÛdulo È necess·rio editar o arquivo *sei/config/ConfiguracaoSEI.php*.
+Para que o SEI reconhe√ßa esse m√≥dulo √© necess√°rio editar o arquivo *sei/config/ConfiguracaoSEI.php*.
 
 Atualize a propriedade *Modulos* no objeto *SEI* (caso nao exista crie essa propriedade) com o seguinte valor:
 
@@ -27,7 +27,7 @@ Atualize a propriedade *Modulos* no objeto *SEI* (caso nao exista crie essa prop
 [...]
 ```
 
-Em seguida basta criar um agendamento definindo-se a periodicidade desejada, com a seguinte funÁ„o:
+Em seguida basta criar um agendamento definindo-se a periodicidade desejada, com a seguinte fun√ß√£o:
 
  ```
 MdAgendamentoAuxiliarRN::removerUsuariosExternosPendentes
