@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * CONTROLADORIA GERAL DA UNIAO
  *
@@ -10,24 +10,21 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class RemoverUsuariosExternosPendentesBD extends InfraBD
 {
-
-  public function __construct(InfraIBanco $objInfraIBanco)
-  {
-  	 parent::__construct($objInfraIBanco);
-  }
-
-  public function removerUsuariosExternosPendentes()
-  {
-    try{
-      // Dias para exclus„o de usu·rios externos pendentes (ex. 15 - quinze dias antes)
-      $dias = 15;
-      $sql = 'delete from usuario where id_usuario in (SELECT usuario.id_usuario FROM usuario LEFT JOIN contato ON contato.id_contato = usuario.id_contato WHERE usuario.sta_tipo = 2 and contato.dth_cadastro < DATEADD(day, -' . $dias . ', GETDATE()))';
-      // $sql = 'delete from usuario where id_usuario in (dth_snapshot <= '.$this->getObjInfraIBanco()->formatarGravacaoDth(InfraData::calcularData(1, InfraData::$UNIDADE_DIAS, InfraData::$SENTIDO_ATRAS, InfraData::getStrDataHoraAtual()));
-
-      return $this->getObjInfraIBanco()->executarSql($sql);
-    }catch(Exception $e){
-      throw new InfraException('Erro removendo usu·rios externos pendentes.',$e);
+    public function __construct(InfraIBanco $objInfraIBanco)
+    {
+        parent::__construct($objInfraIBanco);
     }
-  }
+
+    public function removerUsuariosExternosPendentes()
+    {
+        try {
+            // Dias para exclus√£o de usu√°rios externos pendentes (ex. 15 - quinze dias antes)
+            $dias = 15;
+            $sql = 'delete from usuario where id_usuario in (SELECT usuario.id_usuario FROM usuario LEFT JOIN contato ON contato.id_contato = usuario.id_contato WHERE usuario.sta_tipo = 2 and usuario.sin_ativo="S" and usuario.id_usuario not in (select id_usuario from assinatura) and contato.dth_cadastro < DATEADD(day, -' . $dias . ', GETDATE()))';
+
+            return $this->getObjInfraIBanco()->executarSql($sql);
+        } catch (Exception $e) {
+            throw new InfraException('Erro removendo usu√°rios externos pendentes.', $e);
+        }
+    }
 }
-?>
