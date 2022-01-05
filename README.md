@@ -6,6 +6,11 @@ Este módulo foi desenvolvido para que os usuários possam escrever seus própri
 
 Pedimos que todo e qualquer agendamento desenvolvido seja compartilhado para a sociedade e enviado um _pull request_ para este repositório.
 
+## Procedimentos antes da instalação
+
+    Fazer backup completo dos bancos de dados do SEI e do SIP.
+    Fazer backup da pasta ./sei/web/modulos/
+
 ## Instalação
 Faça o download desse projeto no seguinte diretório do SEI
 ```bash
