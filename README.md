@@ -2,7 +2,7 @@
 
 nome: mod-sei-agendamento-auxiliar
 
-Este módulo foi desenvolvido para que os usuários possam escrever seus próprios agendamentos para o SEI independentes das atualizações do sistema. 
+Este módulo foi desenvolvido para que os usuários possam escrever seus próprios agendamentos para o SUPER/SEI independentes das atualizações do sistema. 
 
 Pedimos que todo e qualquer agendamento desenvolvido seja compartilhado para a sociedade e enviado um _pull request_ para este repositório.
 
