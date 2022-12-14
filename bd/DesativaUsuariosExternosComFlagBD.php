@@ -15,18 +15,19 @@ class DesativaUsuariosExternosComFlagBD extends InfraBD
         parent::__construct($objInfraIBanco);
     }
 
-    public function desativarUsuariosExternosComFlag()
+    /**
+     * Desativa usuários externo com um caractere específico "strFlag" no início do nome
+     * @param $strFlag
+     * @return mixed
+     */
+    public function desativarUsuariosExternosComFlag($strFlag)
     {
-        // Especificar a Flag
-        $flag = '*';
-
         try {
-            $sql = 'update contato set sin_ativo = "N" where sin_ativo = "S" and id_contato in (select id_contato from contato where nome like "' . $flag . '%");';
+            $sql = 'update contato set sin_ativo = \'N\' where sin_ativo = \'S\' and id_contato in (select id_contato from contato where nome like \'' . $strFlag . '%\');';
 
             return $this->getObjInfraIBanco()->executarSql($sql);
-
         } catch (Exception $e) {
-            throw new InfraException('Erro desativando usuarios externos com a flag: "' . $flag . '".', $e);
+            throw new InfraException('Erro desativando usuarios externos com a flag: "' . $strFlag . '".', $e);
         }
     }
 }

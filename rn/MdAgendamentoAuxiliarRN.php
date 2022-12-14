@@ -18,7 +18,7 @@ class MdAgendamentoAuxiliarRN extends InfraRN
 
     protected function removerUsuariosExternosPendentesControlado($parametros = [])
     {
-        try{            
+        try {
             InfraDebug::getInstance()->setBolLigado(true);
             InfraDebug::getInstance()->setBolDebugInfra(false);
             InfraDebug::getInstance()->setBolEcho(false);
@@ -37,7 +37,7 @@ class MdAgendamentoAuxiliarRN extends InfraRN
             
             LogSEI::getInstance()->gravar(InfraDebug::getInstance()->getStrDebug(),InfraLog::$INFORMACAO);
           
-        }catch(Exception $e){
+        } catch(Exception $e) {
             InfraDebug::getInstance()->setBolLigado(false);
             InfraDebug::getInstance()->setBolDebugInfra(false);
             InfraDebug::getInstance()->setBolEcho(false);
@@ -46,7 +46,7 @@ class MdAgendamentoAuxiliarRN extends InfraRN
         }
     }
 
-    protected function desativarUsuariosExternosComFlagControlado()
+    protected function desativarUsuariosExternosComFlagControlado($parametros = [])
     {
         try {
             InfraDebug::getInstance()->setBolLigado(true);
@@ -54,18 +54,20 @@ class MdAgendamentoAuxiliarRN extends InfraRN
             InfraDebug::getInstance()->setBolEcho(false);
             InfraDebug::getInstance()->limpar();
 
+            $strFlag = array_key_exists('strFlag', $parametros) ? $parametros['strFlag'][0] : '*';
+
             $objDesativarUsuariosComFlagBD = new DesativaUsuariosExternosComFlagBD($this->getObjInfraIBanco());
 
             $numSeg = InfraUtil::verificarTempoProcessamento();
-            InfraDebug::getInstance()->gravar('DESATIVANDO USUARIOS EXTERNOS COM FLAG');
-            InfraDebug::getInstance()->gravar($objDesativarUsuariosComFlagBD->desativarUsuariosExternosComFlag() . ' REGISTROS');
+            InfraDebug::getInstance()->gravar('DESATIVANDO USUARIOS EXTERNOS COM FLAG: ' . $strFlag);
+            InfraDebug::getInstance()->gravar($objDesativarUsuariosComFlagBD->desativarUsuariosExternosComFlag($strFlag) . ' REGISTROS');
             $numSeg = InfraUtil::verificarTempoProcessamento($numSeg);
             InfraDebug::getInstance()->gravar('TEMPO TOTAL DE EXECUCAO: ' . $numSeg . ' s');
             InfraDebug::getInstance()->gravar('FIM');
 
             LogSEI::getInstance()->gravar(InfraDebug::getInstance()->getStrDebug(), InfraLog::$INFORMACAO);
 
-        }catch(Exception $e){
+        } catch(Exception $e) {
             InfraDebug::getInstance()->setBolLigado(false);
             InfraDebug::getInstance()->setBolDebugInfra(false);
             InfraDebug::getInstance()->setBolEcho(false);
