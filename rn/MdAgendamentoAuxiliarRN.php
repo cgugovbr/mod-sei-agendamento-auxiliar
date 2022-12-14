@@ -29,7 +29,7 @@ class MdAgendamentoAuxiliarRN extends InfraRN
             $objRemoverUsuariosPendentesBD = new RemoverUsuariosExternosPendentesBD($this->getObjInfraIBanco());
 
             $numSeg = InfraUtil::verificarTempoProcessamento();
-            InfraDebug::getInstance()->gravar('REMOVENDO USUARIOS EXTERNOS PENDENTES');
+            InfraDebug::getInstance()->gravar('REMOVENDO USUARIOS EXTERNOS PENDENTES - qtdDias: ' . $qtdDias);
             InfraDebug::getInstance()->gravar($objRemoverUsuariosPendentesBD->removerUsuariosExternosPendentes($qtdDias).' REGISTROS');
             $numSeg = InfraUtil::verificarTempoProcessamento($numSeg);
             InfraDebug::getInstance()->gravar('TEMPO TOTAL DE EXECUCAO: '.$numSeg.' s');
