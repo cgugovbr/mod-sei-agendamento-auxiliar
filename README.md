@@ -52,3 +52,26 @@ MdAgendamentoAuxiliarRN::removerUsuariosExternosPendentes
 > O Sugerimos que a execução desse script seja feita diariamente em horário não comercial. 
 
 > Por padrão verifica-se usuários criados há 15 dias atrás, contudo essa informação pode ser alterado utilizando o parâmetro: **qtdDias** no agendamento, ou seja, se quiser que exclua somente usuários cadastrados há 30 dias insira no campo "parâmetros" no agendamenteo a seguinte informação **"qtdDias=30"**.
+
+### 2. Desativar usuários externos com "flag"
+
+Esta função desativa usuários externos que possuem um determinado caractere na primeira posição, exemplo: 
+
+    Cadastro: JOHN DOE
+
+Alterando o nome dele para:
+
+    Novo nome: *JOHN DOE
+
+Esse usuário será desativado ao chamar essa função.
+
+Para executar essa funcionalidade, basta criar um agendamento definindo-se a periodicidade desejada, com a seguinte função:
+
+ ```
+MdAgendamentoAuxiliarRN::desativarUsuariosExternosComFlag
+ ```
+
+> O Sugerimos que a execução desse script seja feita diariamente em horário não comercial. 
+
+> Por padrão o caracter utilizado para desativação é o asterico ("*"), pode-se alterar esse caracter utiliznado o parâmetro "strFlag", ou seja se quiser usar o caracter "UUU", insira no campo "parâmetro" no agendamento a seguinte informação **"strFlag=UUU"**
+
