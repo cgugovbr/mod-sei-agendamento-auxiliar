@@ -16,19 +16,21 @@ class MdAgendamentoAuxiliarRN extends InfraRN
         return BancoSEI::getInstance();
     }
 
-    protected function removerUsuariosExternosPendentesControlado()
+    protected function removerUsuariosExternosPendentesControlado($parametros = [])
     {
         try{            
             InfraDebug::getInstance()->setBolLigado(true);
             InfraDebug::getInstance()->setBolDebugInfra(false);
             InfraDebug::getInstance()->setBolEcho(false);
             InfraDebug::getInstance()->limpar();
-            
+
+            $qtdDias = array_key_exists('qtdDias', $parametros) ? intval($parametros['qtdDias'][0]) : 15;
+
             $objRemoverUsuariosPendentesBD = new RemoverUsuariosExternosPendentesBD($this->getObjInfraIBanco());
 
             $numSeg = InfraUtil::verificarTempoProcessamento();
             InfraDebug::getInstance()->gravar('REMOVENDO USUARIOS EXTERNOS PENDENTES');
-            InfraDebug::getInstance()->gravar($objRemoverUsuariosPendentesBD->removerUsuariosExternosPendentes().' REGISTROS');
+            InfraDebug::getInstance()->gravar($objRemoverUsuariosPendentesBD->removerUsuariosExternosPendentes($qtdDias).' REGISTROS');
             $numSeg = InfraUtil::verificarTempoProcessamento($numSeg);
             InfraDebug::getInstance()->gravar('TEMPO TOTAL DE EXECUCAO: '.$numSeg.' s');
             InfraDebug::getInstance()->gravar('FIM');
