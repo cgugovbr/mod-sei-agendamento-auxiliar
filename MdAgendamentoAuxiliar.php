@@ -6,25 +6,32 @@
  *
  */
 
-class MdAgendamentoAuxiliar extends SeiIntegracao{
+class MdAgendamentoAuxiliar extends SeiIntegracao
+{
 
-  public function __construct(){
+  public function __construct()
+  {
   }
 
-  public function getNome(){
+  public function getNome()
+  {
     return 'Módulo de Agendamento Auxiliar';
   }
 
-  public function getVersao() {
-    return '1.0.0';
+  public function getVersao()
+  {
+    return '1.4.0';
   }
 
-  public function getInstituicao(){
+  public function getInstituicao()
+  {
     return 'CGU - Controladoria Geral da União';
   }
 
-  public function inicializar($strVersaoSEI){
+  public function inicializar($strVersaoSEI)
+  {
    // 
   }
 }
+
 ?>
