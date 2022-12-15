@@ -23,7 +23,7 @@ class DesativaUsuariosExternosComFlagBD extends InfraBD
     public function desativarUsuariosExternosComFlag($strFlag)
     {
         try {
-            $sql = 'update contato set sin_ativo = \'N\' where sin_ativo = \'S\' and id_contato in (select id_contato from contato where nome like \'' . $strFlag . '%\');';
+            $sql = 'update contato set sin_ativo = \'N\' where sin_ativo = \'S\' and nome like \'' . $strFlag . '%\'';
 
             return $this->getObjInfraIBanco()->executarSql($sql);
         } catch (Exception $e) {
