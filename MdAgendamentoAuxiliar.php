@@ -15,7 +15,7 @@ class MdAgendamentoAuxiliar extends SeiIntegracao
 
   public function getNome()
   {
-    return 'MÛdulo de Agendamento Auxiliar';
+    return 'M√≥dulo de Agendamento Auxiliar';
   }
 
   public function getVersao()
@@ -25,7 +25,7 @@ class MdAgendamentoAuxiliar extends SeiIntegracao
 
   public function getInstituicao()
   {
-    return 'CGU - Controladoria Geral da Uni„o';
+    return 'CGU - Controladoria Geral da Uni√£o';
   }
 
   public function inicializar($strVersaoSEI)

@@ -16,7 +16,7 @@ class DesativaUsuariosExternosComFlagBD extends InfraBD
     }
 
     /**
-     * Desativa usu·rios externo com um caractere especÌfico "strFlag" no inÌcio do nome
+     * Desativa usu√°rios externo com um caractere espec√≠fico "strFlag" no in√≠cio do nome
      * @param $strFlag
      * @return mixed
      */

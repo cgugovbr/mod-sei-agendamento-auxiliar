@@ -16,7 +16,7 @@ class RemoverUsuariosExternosPendentesBD extends InfraBD
     }
 
     /**
-     * Remove usu·rios externos criados h· mais de 'qtdDias' de dias, ativos, que n„o possuem nenhuma
+     * Remove usu√°rios externos criados h√° mais de 'qtdDias' de dias, ativos, que n√£o possuem nenhuma
      * assinatura no sistema.
      *
      * @param $qtdDias
@@ -29,7 +29,7 @@ class RemoverUsuariosExternosPendentesBD extends InfraBD
 
             return $this->getObjInfraIBanco()->executarSql($sql);
         } catch (Exception $e) {
-            throw new InfraException('Erro removendo usu·rios externos pendentes.', $e);
+            throw new InfraException('Erro removendo usu√°rios externos pendentes.', $e);
         }
     }
 }
