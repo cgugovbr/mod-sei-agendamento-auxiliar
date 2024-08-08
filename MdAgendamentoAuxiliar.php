@@ -20,7 +20,7 @@ class MdAgendamentoAuxiliar extends SeiIntegracao
 
   public function getVersao()
   {
-    return '1.4.0';
+    return '1.5.0';
   }
 
   public function getInstituicao()
