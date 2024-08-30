@@ -51,18 +51,30 @@ class MdAgAuxUsuariosExternosBD extends InfraBD
         $objInfraIBanco = $this->getObjInfraIBanco();
 
         // Consulta usuários elegíveis
-        $sql = "SELECT u.id_usuario, u.id_contato FROM usuario u ".
+        $sql = "SELECT u.id_usuario, u.id_contato, mu.dth_ultima_desativacao ".
+                "FROM usuario u ".
                     "LEFT JOIN contato c ON u.id_contato = c.id_contato ".
+                    "LEFT JOIN md_ag_aux_usuario_externo mu ON u.id_usuario = mu.id_usuario ".
                 "WHERE u.sin_ativo = 'S' ".
                     "AND u.sta_tipo = 3 ".
-                    "AND c.dth_cadastro < '$dataLimiteFormatada'";
+                    "AND (".
+                        "(mu.dth_ultima_desativacao IS NULL AND c.dth_cadastro < '$dataLimiteFormatada') ".
+                        "OR mu.dth_ultima_desativacao < '$dataLimiteFormatada'".
+                    ")";
         $resultados = $objInfraIBanco->consultarSql($sql);
 
         $idsUsuario = [];
         $idsContato = [];
+        $idsUsuarioInsertData = [];
+        $idsUsuarioUpdateData = [];
         foreach ($resultados as $linha) {
             $idsUsuario[] = $linha['id_usuario'];
             $idsContato[] = $linha['id_contato'];
+            if ($linha['dth_ultima_desativacao']) {
+                $idsUsuarioUpdateData[] = $linha['id_usuario'];
+            } else {
+                $idsUsuarioInsertData[] = $linha['id_usuario'];
+            }
         }
 
         if (count($idsUsuario) == 0) {
@@ -75,13 +87,26 @@ class MdAgAuxUsuariosExternosBD extends InfraBD
         $objInfraIBanco->executarSql($sql);
 
         // Atualizar tabela contato
-        // Além de desativar o contato, alteramos a data de cadastro para a
-        // data corrente para reiniciar a contagem de tempo
-        $dataCorrente = (new DateTime())->format('Y-m-d H:i:s');
-        $sql = "UPDATE contato SET sin_ativo = 'N', ".
-            "dth_cadastro = '$dataCorrente' WHERE id_contato IN (".
+        $sql = "UPDATE contato SET sin_ativo = 'N' WHERE id_contato IN (".
             implode(',', $idsContato) . ")";
         $objInfraIBanco->executarSql($sql);
+
+        // Atualiza tabela md_ag_aux_usuario_externo com a data corrente
+        // para cada usuário desativado
+        $dataCorrenteFormatada = (new DateTime())->format('Y-m-d H:i:s');
+        if (count($idsUsuarioInsertData) > 0) {
+            foreach ($idsUsuarioInsertData as $idUsuario) {
+                $sql = "INSERT INTO md_ag_aux_usuario_externo (id_usuario, dth_ultima_desativacao) ".
+                    "VALUES ($idUsuario, '$dataCorrenteFormatada') ";
+                $objInfraIBanco->executarSql($sql);
+            }
+        }
+        if (count($idsUsuarioUpdateData) > 0) {
+            $sql = "UPDATE md_ag_aux_usuario_externo ".
+                "SET dth_ultima_desativacao = '$dataCorrenteFormatada' ".
+                "WHERE id_usuario IN (".implode(',', $idsUsuarioUpdateData).")";
+            $objInfraIBanco->executarSql($sql);
+        }
 
         return count($idsUsuario);
     }
