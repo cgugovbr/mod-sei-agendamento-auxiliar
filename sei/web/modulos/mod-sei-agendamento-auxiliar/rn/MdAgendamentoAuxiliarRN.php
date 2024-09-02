@@ -54,7 +54,7 @@ class MdAgendamentoAuxiliarRN extends InfraRN
 
             $strFlag = array_key_exists('strFlag', $parametros) ? $parametros['strFlag'][0] : '*';
 
-            $objUsuariosExternosBD = new MdAgAuxUsuariosExternosBD($this->getObjInfraIBanco());
+            $objUsuariosExternosBD = new DesativaUsuariosExternosComFlagBD($this->getObjInfraIBanco());
 
             $numSeg = InfraUtil::verificarTempoProcessamento();
             InfraDebug::getInstance()->gravar('DESATIVANDO USUARIOS EXTERNOS COM FLAG: ' . $strFlag);
@@ -84,11 +84,23 @@ class MdAgendamentoAuxiliarRN extends InfraRN
 
             $numQtdDias = array_key_exists('qtdDias', $parametros) ? intval($parametros['qtdDias'][0]) : 365;
 
-            $objUsuariosExternosBD = new MdAgAuxUsuariosExternosBD($this->getObjInfraIBanco());
+            $objUsuariosExternosBD = new MdAgAuxUsuarioExternoBD($this->getObjInfraIBanco());
 
             $numSeg = InfraUtil::verificarTempoProcessamento();
             InfraDebug::getInstance()->gravar("DESATIVANDO USUÁRIOS EXTERNOS CADASTRADOS HÁ MAIS DE $numQtdDias DIAS");
-            InfraDebug::getInstance()->gravar($objUsuariosExternosBD->desativarUsuariosExternosAntigos($numQtdDias) . ' REGISTROS');
+            $idsUsuarioDesativados = $objUsuariosExternosBD->desativarUsuariosExternosAntigos($numQtdDias);
+            InfraDebug::getInstance()->gravar(count($idsUsuarioDesativados) . ' REGISTROS');
+
+            // Grava data de desativação na tabela auxiliar
+            $objMdAgAuxUsuarioExternoRN = new MdAgAuxUsuarioExternoRN();
+            foreach ($idsUsuarioDesativados as $idUsuario) {
+                $objMdAgAuxUsuarioExternoDTO = new MdAgAuxUsuarioExternoDTO();
+                $objMdAgAuxUsuarioExternoDTO->setNumIdUsuario($idUsuario);
+                $objMdAgAuxUsuarioExternoDTO->setDthInicioCicloValidade(InfraData::getStrDataHoraAtual());
+
+                $objMdAgAuxUsuarioExternoRN->cadastrarOuAlterar($objMdAgAuxUsuarioExternoDTO);
+            }
+
             $numSeg = InfraUtil::verificarTempoProcessamento($numSeg);
             InfraDebug::getInstance()->gravar('TEMPO TOTAL DE EXECUCAO: ' . $numSeg . ' s');
             InfraDebug::getInstance()->gravar('FIM');

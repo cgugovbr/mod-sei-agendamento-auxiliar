@@ -32,6 +32,12 @@ class MdAgendamentoAuxiliar extends SeiIntegracao
   {
    // 
   }
+
+  public function reativarContato($arrObjContatoAPI)
+  {
+    $objMdAgAuxUsuarioExternoRN = new MdAgAuxUsuarioExternoRN();
+    $objMdAgAuxUsuarioExternoRN->atualizarDataInicioValidade($arrObjContatoAPI);
+  }
 }
 
 ?>
