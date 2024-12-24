@@ -97,5 +97,5 @@ Para utilizar esta funcionalidade basta criar um agendamento com a função:
 MdAgendamentoAuxiliarRN::desativarUsuariosExternosAntigos
 ```
 
-Configurar o parâmetro **qtDias** se desejar alterar a quantidade de dias para
+Configurar o parâmetro **qtdDias** se desejar alterar a quantidade de dias para
 cálculo da data de corte de quem será desativado.
