@@ -17,10 +17,11 @@ SUPER 4.0 ou superior
     Fazer backup da pasta ./sei/web/modulos/
 
 ## Instalação
-Faça o download desse projeto no seguinte diretório do SEI
-```bash
-$ cd sei/web/modulos
-$ git clone https://github.com/evertramos/mod-sei-agendamento-auxiliar.git
+Faça o download do códiog fonte deste projeto em formato ZIP e faça upload para
+o servidor do SEI. Em seguinte extraia o conteúdo na raiz do SEI:
+```sh
+cd <RAIZ_INSTALACAO_SEI>
+unzip mod-sei-agendamento-auxiliar-VERSAO.zip
 ```
 
 Para que o SEI reconheça esse módulo é necessário editar o arquivo *sei/config/ConfiguracaoSEI.php*.
@@ -36,6 +37,15 @@ Atualize a propriedade *Modulos* no objeto *SEI* (caso nao exista crie essa prop
       'Modulos' => array('MdAgendamentoAuxiliar' => 'mod-sei-agendamento-auxiliar')),
 [...]
 ```
+
+Finalmente execute o script de instalação que fica na pasta sei scripts:
+```sh
+cd <RAIZ_INSTALACAO_SEI>
+php sei/scripts/md_ag_aux_atualizar_modulo.php
+```
+
+Ao final da execução do script, caso tudo tenha ocorrido corretamente, deverá
+aparecer a palavra **FIM**.
 
 ## Funções disponíveis
 
@@ -75,3 +85,17 @@ MdAgendamentoAuxiliarRN::desativarUsuariosExternosComFlag
 
 > Por padrão o caracter utilizado para desativação é o asterico ("*"), pode-se alterar esse caracter utiliznado o parâmetro "strFlag", ou seja se quiser usar o caracter "UUU", insira no campo "parâmetro" no agendamento a seguinte informação **"strFlag=UUU"**
 
+### 3. Desativar usuários externos antigos
+
+Esta função desativa os usuários antigos que foram cadastrados há mais de uma
+determinada quantidade de dias (por padrão 365 dias). Dessa forma, o usuário
+deverá atualizar sua documentação e o administrador deverá reativá-lo no sistema.
+
+Para utilizar esta funcionalidade basta criar um agendamento com a função:
+
+```
+MdAgendamentoAuxiliarRN::desativarUsuariosExternosAntigos
+```
+
+Configurar o parâmetro **qtDias** se desejar alterar a quantidade de dias para
+cálculo da data de corte de quem será desativado.
