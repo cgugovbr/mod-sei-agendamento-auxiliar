@@ -20,8 +20,8 @@ class MdAgAuxUsuarioExternoBD extends InfraBD
      */
     public function desativarUsuariosExternosAntigos($qtdDias)
     {
-        // Os gestores pediram que a rotina só funcionasse daqui a um ano
-        if (new DateTime() < new DateTime("2025-08-08")) {
+        // Os gestores pediram que a rotina só funcionasse a partir da data indicada
+        if (new DateTime() < new DateTime("2026-01-02")) {
             return [];
         }
 
