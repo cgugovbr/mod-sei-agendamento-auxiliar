@@ -1,3 +1,16 @@
+# [MIGRADO] REPOSITORIO MIGRADO
+
+## ATENCAO
+Este repositorio foi movido para o GitHub Enterprise (GHE).
+
+### Novo endereco
+https://github.com/cgu-se-dti/mod-sei-agendamento-auxiliar
+
+Se voce nao tiver acesso, fale com a lider da equipe para inclusao no grupo do AD e liberacao no novo repositorio.
+
+---
+
+
 # Módulo de Agendamento Auxiliar para o SUPER/SEI
 
 nome: mod-sei-agendamento-auxiliar
